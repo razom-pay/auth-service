@@ -2,11 +2,16 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { RpcException } from '@nestjs/microservices'
 import { RpcStatus } from '@razom-pay/common'
-import type { TelegramVerifyRequest } from '@razom-pay/contracts/gen/auth'
+import type {
+	TelegramCompleteRequest,
+	TelegramConsumeRequest,
+	TelegramVerifyRequest
+} from '@razom-pay/contracts/gen/auth'
 import { createHash, createHmac, randomBytes } from 'node:crypto'
 
 import { AllConfigs } from '@/config'
 import { RedisService } from '@/infra/redis/redis.service'
+import { UserRepository } from '@/shared/repositories/user.repository'
 
 import { TokenService } from '../token/token.service'
 
@@ -33,6 +38,7 @@ export class TelegramService {
 		private readonly redisService: RedisService,
 		private readonly configService: ConfigService<AllConfigs>,
 		private readonly telegramRepository: TelegramRepository,
+		private readonly userRepository: UserRepository,
 		private readonly tokenService: TokenService
 	) {
 		this.BOT_ID = this.configService.get('telegram.botId', { infer: true })!
@@ -119,5 +125,67 @@ export class TelegramService {
 		const isValid = hmac === hash
 
 		return isValid
+	}
+
+	async complete(data: TelegramCompleteRequest) {
+		const { sessionId, phone } = data
+
+		const raw = await this.redisService.get(`telegram_session:${sessionId}`)
+
+		if (!raw) {
+			throw new RpcException({
+				code: RpcStatus.NOT_FOUND,
+				detaile: 'Session not found or expired'
+			})
+		}
+
+		// TODO: need typify
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		const { telegramId }: { telegramId: string } = JSON.parse(raw)
+
+		let user = await this.userRepository.findByPhone(phone)
+
+		if (!user) {
+			user = await this.userRepository.create({
+				phone
+			})
+		}
+
+		await this.userRepository.update(user.id, {
+			telegramId,
+			isPhoneVerified: true
+		})
+
+		const tokens = this.tokenService.generate(user.id)
+
+		await this.redisService.set(
+			`telegram_tokens:${sessionId}`,
+			JSON.stringify(tokens),
+			'EX',
+			120
+		)
+
+		await this.redisService.del(`telegram_session:${sessionId}`)
+
+		return { sessionId }
+	}
+
+	async consumeSession(data: TelegramConsumeRequest) {
+		const { sessionId } = data
+
+		const raw = await this.redisService.get(`telegram_tokens:${sessionId}`)
+
+		if (!raw) {
+			throw new RpcException({
+				code: RpcStatus.NOT_FOUND,
+				details: 'Session not found or expired'
+			})
+		}
+
+		const tokens = JSON.parse(raw)
+
+		await this.redisService.del(`telegram_tokens:${sessionId}`)
+
+		return tokens
 	}
 }

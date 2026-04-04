@@ -31,7 +31,7 @@
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
     "@razom-pay/common": "^1.0.1",
-    "@razom-pay/contracts": "^1.0.8",
+    "@razom-pay/contracts": "^1.0.12",
     "@razom-pay/passport": "^1.0.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",

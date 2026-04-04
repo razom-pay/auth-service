@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import type { AccountUpdateInput } from '@prisma/generated/internal/prismaNamespaceBrowser'
+import type {
+	AccountCreateInput,
+	AccountUpdateInput
+} from '@prisma/generated/internal/prismaNamespaceBrowser'
 
 import { PrismaService } from '@/infra/prisma/prisma.service'
 
@@ -20,6 +23,12 @@ export class UserRepository {
 			where: {
 				email
 			}
+		})
+	}
+
+	create(data: AccountCreateInput) {
+		return this.prismaService.account.create({
+			data
 		})
 	}
 
