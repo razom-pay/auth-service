@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config'
 
 import { validateEnv } from '@/shared/utils'
 
-import { RedisConfig } from '../interfaces/redis.interface'
+import type { RedisConfig } from '../interfaces/redis.interface'
 import { RedisValidator } from '../validators'
 
 export const redisEnv = registerAs<RedisConfig>('redis', () => {

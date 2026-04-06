@@ -1323,9 +1323,9 @@
   integrity sha512-HJcezLCQfe4J2PjP9W7pb2bLnG681a26Mb2AiaI63XEGN1Faqr6lScdux80QeaViObySDnlULl9Se6uczhjVkA==
 
 "@razom-pay/contracts@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@razom-pay/contracts/-/contracts-1.0.12.tgz#891a0fe1b98a3853525d6a35b2229989694c4dad"
-  integrity sha512-0y+JjfgkAv1QJHqFK5ryXrTzdIWcuDb/gZts5hoDTAIgvKFTzMJp/bxBv6a56uigQ61ITFqNAO7UxcNAcCRfyg==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@razom-pay/contracts/-/contracts-1.1.0.tgz#06333d10e059a9a075ed951470f7ca745b21e4fd"
+  integrity sha512-TeVd2KBDOIKq/NRQLLZNkF5j+eWQ9xBxDFx7Nisx2LoMFoHaSoycJnFnfULT6mnjNaW3x1eQ/S/H0ZAWlUP87A==
   dependencies:
     "@nestjs/microservices" "^11.1.17"
     rxjs "^7.8.2"
@@ -2064,6 +2064,20 @@ ajv@^8.0.0, ajv@^8.9.0:
     json-schema-traverse "^1.0.0"
     require-from-string "^2.0.2"
 
+amqp-connection-manager@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/amqp-connection-manager/-/amqp-connection-manager-5.0.0.tgz#3bf72f76e1e041768080227fffab1f9baea70baa"
+  integrity sha512-88yQzqa5RSBgnLl504XjvCQJ7d+osskdwvg35Lwm1LRbfLjNU9p7SQUMSP82BB7mseiq9tIUPJ3HE3eXQbpjEw==
+  dependencies:
+    promise-breaker "^6.0.0"
+
+amqplib@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/amqplib/-/amqplib-1.0.3.tgz#ff6d17799a03c1516bd94205759d2c2436d29e62"
+  integrity sha512-nsrXa59tvX4HPjPPW8JJGuBb/Db0MOq3DOhGdSbIY7bTsQDMV2fmF9c3i74g/8Gt9+QWyrxfEPppOOoV9lK1uQ==
+  dependencies:
+    buffer-more-ints "~1.0.0"
+
 ansi-colors@4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.3.tgz#37611340eb2243e70cc604cad35d63270d48781b"
@@ -2320,6 +2334,11 @@ buffer-from@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
   integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
+
+buffer-more-ints@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/buffer-more-ints/-/buffer-more-ints-1.0.0.tgz#ef4f8e2dddbad429ed3828a9c55d44f05c611422"
+  integrity sha512-EMetuGFz5SLsT0QTnXzINh4Ksr+oo4i+UGTXEshiGCQWnsgSs7ZhJ8fzlwQ+OzEMs0MpDAMr1hxnblp5a4vcHg==
 
 buffer@^5.5.0:
   version "5.7.1"
@@ -4939,6 +4958,11 @@ prisma@^7.5.0:
     "@prisma/studio-core" "0.21.1"
     mysql2 "3.15.3"
     postgres "3.4.7"
+
+promise-breaker@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/promise-breaker/-/promise-breaker-6.0.0.tgz#107d2b70f161236abdb4ac5a736c7eb8df489d0f"
+  integrity sha512-BthzO9yTPswGf7etOBiHCVuugs2N01/Q/94dIPls48z2zCmrnDptUUZzfIb+41xq0MnYZ/BzmOd6ikDR4ibNZA==
 
 proper-lockfile@4.1.2:
   version "4.1.2"

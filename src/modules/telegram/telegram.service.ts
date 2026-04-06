@@ -182,7 +182,9 @@ export class TelegramService {
 			})
 		}
 
-		const tokens = JSON.parse(raw)
+		// TODO: need fix
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		const tokens: Record<string, unknown> = JSON.parse(raw)
 
 		await this.redisService.del(`telegram_tokens:${sessionId}`)
 

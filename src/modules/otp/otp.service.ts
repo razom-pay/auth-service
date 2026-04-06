@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { RpcException } from '@nestjs/microservices'
 import { RpcStatus } from '@razom-pay/common'
-import { createHash } from 'node:crypto'
-import { generateCode } from 'patcode'
+import { createHash, randomInt } from 'node:crypto'
 
 import { RedisService } from '@/infra/redis/redis.service'
 
@@ -45,8 +44,16 @@ export class OtpService {
 		await this.redisService.del(`otp:${type}:${identifier}`)
 	}
 
+	private generateNumericCode(length: number) {
+		let code = ''
+		for (let i = 0; i < length; i++) {
+			code += randomInt(0, 10).toString()
+		}
+		return code
+	}
+
 	private generateCode() {
-		const code = generateCode()
+		const code = this.generateNumericCode(6)
 		const hash = createHash('sha256').update(code).digest('hex')
 
 		return { code, hash }

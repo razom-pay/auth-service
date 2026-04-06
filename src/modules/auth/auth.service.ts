@@ -8,6 +8,7 @@ import type {
 	VerifyOtpRequest
 } from '@razom-pay/contracts/gen/auth'
 
+import { MessagingService } from '@/infra/messaging/messaging.service'
 import { UserRepository } from '@/shared/repositories/user.repository'
 
 import { OtpService } from '../otp/otp.service'
@@ -18,7 +19,8 @@ export class AuthService {
 	constructor(
 		private readonly userRepository: UserRepository,
 		private readonly otpService: OtpService,
-		private readonly tokenService: TokenService
+		private readonly tokenService: TokenService,
+		private readonly messagingService: MessagingService
 	) {}
 
 	async sendOtp(data: SendOtpRequest) {
@@ -37,12 +39,16 @@ export class AuthService {
 			})
 		}
 
-		const code = await this.otpService.send(
+		const { code } = await this.otpService.send(
 			identifier,
 			type as 'email' | 'phone'
 		)
 
-		console.debug('CODE', code)
+		this.messagingService.otpRequested({
+			identifier,
+			type,
+			code
+		})
 
 		return { ok: true }
 	}
