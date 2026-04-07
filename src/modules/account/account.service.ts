@@ -9,6 +9,7 @@ import type {
 	InitPhoneChangeRequest
 } from '@razom-pay/contracts/gen/account'
 
+import { MessagingService } from '@/infra/messaging/messaging.service'
 import { UserRepository } from '@/shared/repositories'
 
 import { OtpService } from '../otp/otp.service'
@@ -18,6 +19,7 @@ import { AccountRepository } from './account.repository'
 @Injectable()
 export class AccountService {
 	constructor(
+		private readonly messagingService: MessagingService,
 		private readonly accountRepository: AccountRepository,
 		private readonly userRepository: UserRepository,
 		private readonly otpService: OtpService
@@ -58,7 +60,10 @@ export class AccountService {
 
 		const { code, hash } = await this.otpService.send(email, 'email')
 
-		console.log(`Email change OTP for ${email}: ${code}`)
+		this.messagingService.emailChange({
+			email,
+			code
+		})
 
 		await this.accountRepository.upsertPendingChange({
 			accountId: userId,
@@ -124,7 +129,10 @@ export class AccountService {
 
 		const { code, hash } = await this.otpService.send(phone, 'phone')
 
-		console.log(`Phone change OTP for ${phone}: ${code}`)
+		this.messagingService.phoneChange({
+			phone,
+			code
+		})
 
 		await this.accountRepository.upsertPendingChange({
 			accountId: userId,

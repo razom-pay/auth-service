@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
-import type { OtpRequestedEvent } from '@razom-pay/contracts'
+import type {
+	EmailChangeEvent,
+	OtpRequestedEvent,
+	PhoneChangeEvent
+} from '@razom-pay/contracts'
 
 @Injectable()
 export class MessagingService {
@@ -10,5 +14,13 @@ export class MessagingService {
 
 	otpRequested(data: OtpRequestedEvent) {
 		return this.client.emit('auth.otp.requested', data)
+	}
+
+	phoneChange(data: PhoneChangeEvent) {
+		return this.client.emit('account.phone.change', data)
+	}
+
+	emailChange(data: EmailChangeEvent) {
+		return this.client.emit('account.email.change', data)
 	}
 }
