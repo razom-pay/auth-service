@@ -1052,6 +1052,17 @@
     load-esm "1.0.3"
     tslib "2.8.1"
 
+"@nestjs/common@^11.1.18":
+  version "11.1.18"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.1.18.tgz#329b214aadea5a4a1b12b4eee61c32b9c5b5082c"
+  integrity sha512-0sLq8Z+TIjLnz1Tqp0C/x9BpLbqpt1qEu0VcH4/fkE0y3F5JxhfK1AdKQ/SPbKhKgwqVDoY4gS8GQr2G6ujaWg==
+  dependencies:
+    uid "2.0.2"
+    file-type "21.3.4"
+    iterare "1.2.1"
+    load-esm "1.0.3"
+    tslib "2.8.1"
+
 "@nestjs/config@^4.0.3":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@nestjs/config/-/config-4.0.3.tgz#bb24a5f64e4e3ccf6fbf9e02f63303d14d7f308e"
@@ -1060,6 +1071,15 @@
     dotenv "17.2.3"
     dotenv-expand "12.0.3"
     lodash "4.17.23"
+
+"@nestjs/config@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@nestjs/config/-/config-4.0.4.tgz#311d806fdc32a8bf29cf9ced903b97cbdb7e064b"
+  integrity sha512-CJPjNitr0bAufSEnRe2N+JbnVmMmDoo6hvKCPzXgZoGwJSmp/dZPk9f/RMbuD/+Q1ZJPjwsRpq0vxna++Knwow==
+  dependencies:
+    dotenv "17.4.1"
+    dotenv-expand "12.0.3"
+    lodash "4.18.1"
 
 "@nestjs/core@^11.0.1", "@nestjs/core@^11.1.17":
   version "11.1.17"
@@ -1082,6 +1102,14 @@
   version "11.1.17"
   resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-11.1.17.tgz#f2b1aa25e24532377477a437583f1af002118602"
   integrity sha512-rubBPEEXS9PwA3LwdNN/ytjEUmON+d8+4fbiUCIFGW8i+rR/g36vrpwuvoAzcGpxlu45/TpZPfHTb0nJciG9Yw==
+  dependencies:
+    iterare "1.2.1"
+    tslib "2.8.1"
+
+"@nestjs/microservices@^11.1.18":
+  version "11.1.18"
+  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-11.1.18.tgz#3f5edd756e32f7c85c1c67c65f8ba3b62a736ebf"
+  integrity sha512-sodzBqqKAcOv5GctTbb0j3vzgx+X3/IxmJ8pBKL9hEmsarsYPkig6dcOcVFmM2Pknm+o6Cxaqv1YZZETISNi+w==
   dependencies:
     iterare "1.2.1"
     tslib "2.8.1"
@@ -1318,11 +1346,16 @@
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
 "@razom-pay/common@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@razom-pay/common/-/common-1.0.1.tgz#14a5da8d2ee1ef7728d9afd6a72ca26a12af9712"
-  integrity sha512-HJcezLCQfe4J2PjP9W7pb2bLnG681a26Mb2AiaI63XEGN1Faqr6lScdux80QeaViObySDnlULl9Se6uczhjVkA==
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@razom-pay/common/-/common-1.1.3.tgz#2e80bf93cd7ea4f51e55dd8eb8a7aa33586ca87e"
+  integrity sha512-kEzWeLXgQq4IqXQxEhk7KOzOQAaOhe6QCx5OyfbWb1IdvFEN8OHvNQmmAhHPpjSSAVtmLgcPQk6VNKDt+r6eDA==
+  dependencies:
+    "@nestjs/common" "^11.1.18"
+    "@nestjs/config" "^4.0.4"
+    "@nestjs/microservices" "^11.1.18"
+    "@razom-pay/contracts" "^1.1.5"
 
-"@razom-pay/contracts@^1.1.4":
+"@razom-pay/contracts@^1.1.4", "@razom-pay/contracts@^1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@razom-pay/contracts/-/contracts-1.1.5.tgz#4836e911e220fc31238e9ff3506ad79edbe5aeaf"
   integrity sha512-elfw+GhrRLH8QPlTosAzb9zhJeCPyxoMHLvFO/KZmjcyQL2ftJkTNcKkKSzpQzC0+k+q2+Z8vj1vFCHgLHYtTA==
@@ -2781,6 +2814,11 @@ dotenv@17.2.3:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-17.2.3.tgz#ad995d6997f639b11065f419a22fabf567cdb9a2"
   integrity sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==
 
+dotenv@17.4.1:
+  version "17.4.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-17.4.1.tgz#d8e2179fe287365ef3aecb9459668454168eda88"
+  integrity sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==
+
 dotenv@^16.4.5, dotenv@^16.6.1:
   version "16.6.1"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.6.1.tgz#773f0e69527a8315c7285d5ee73c4459d20a8020"
@@ -3185,6 +3223,16 @@ file-type@21.3.2:
   version "21.3.2"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-21.3.2.tgz#b28bb3a19ea4b03f59af31546b9d95ee8a3623eb"
   integrity sha512-DLkUvGwep3poOV2wpzbHCOnSKGk1LzyXTv+aHFgN2VFl96wnp8YA9YjO2qPzg5PuL8q/SW9Pdi6WTkYOIh995w==
+  dependencies:
+    "@tokenizer/inflate" "^0.4.1"
+    strtok3 "^10.3.4"
+    token-types "^6.1.1"
+    uint8array-extras "^1.4.0"
+
+file-type@21.3.4:
+  version "21.3.4"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-21.3.4.tgz#e3f902faee8ec4aa152909fc902a7a77f9c06725"
+  integrity sha512-Ievi/yy8DS3ygGvT47PjSfdFoX+2isQueoYP1cntFW1JLYAuS4GD7NUPGg4zv2iZfV52uDyk5w5Z0TdpRS6Q1g==
   dependencies:
     "@tokenizer/inflate" "^0.4.1"
     strtok3 "^10.3.4"
@@ -4269,6 +4317,11 @@ lodash@4.17.23, lodash@^4.17.21:
   version "4.17.23"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
   integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
+
+lodash@4.18.1:
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.18.1.tgz#ff2b66c1f6326d59513de2407bf881439812771c"
+  integrity sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==
 
 log-symbols@^4.1.0:
   version "4.1.0"
