@@ -23,6 +23,11 @@ import { UsersModule } from './modules/users/users.module'
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
+			envFilePath: [
+				`.env.${process.env.NODE_ENV}.local`,
+				`.env.${process.env.NODE_ENV}`,
+				'.env'
+			],
 			load: [
 				databaseEnv,
 				grpcEnv,
