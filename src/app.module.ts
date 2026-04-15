@@ -18,6 +18,7 @@ import { OtpModule } from './modules/otp/otp.module'
 import { TelegramModule } from './modules/telegram/telegram.module'
 import { TokenModule } from './modules/token/token.module'
 import { UsersModule } from './modules/users/users.module'
+import { ObservabilityModule } from './observability/observability.module'
 
 @Module({
 	imports: [
@@ -42,6 +43,7 @@ import { UsersModule } from './modules/users/users.module'
 		AuthModule,
 		RedisModule,
 		MessagingModule,
+		ObservabilityModule,
 		OtpModule,
 		AccountModule,
 		TelegramModule,
