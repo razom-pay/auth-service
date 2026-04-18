@@ -12,6 +12,8 @@ services:
             - .env.production.local
         expose:
             - '9101'
+        volumes:
+            - ../logs/auth:/var/log/services/auth
         networks:
             - razom-pay
 

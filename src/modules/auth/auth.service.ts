@@ -7,6 +7,7 @@ import type {
 	SendOtpRequest,
 	VerifyOtpRequest
 } from '@razom-pay/contracts/gen/auth'
+import { PinoLogger } from 'nestjs-pino/PinoLogger'
 
 import { MessagingService } from '@/infra/messaging/messaging.service'
 import { UserRepository } from '@/shared/repositories/user.repository'
@@ -18,15 +19,22 @@ import { UsersClientGrpc } from '../users/users.grpc'
 @Injectable()
 export class AuthService {
 	constructor(
+		private readonly logger: PinoLogger,
 		private readonly userRepository: UserRepository,
 		private readonly otpService: OtpService,
 		private readonly tokenService: TokenService,
 		private readonly messagingService: MessagingService,
 		private readonly usersClient: UsersClientGrpc
-	) {}
+	) {
+		this.logger.setContext(AuthService.name)
+	}
 
 	async sendOtp(data: SendOtpRequest) {
 		const { identifier, type } = data
+
+		this.logger.info(
+			`OTP request received: identifier=${identifier}, type=${type}`
+		)
 
 		let account: Account | null
 
@@ -35,6 +43,10 @@ export class AuthService {
 		else account = await this.userRepository.findByEmail(identifier)
 
 		if (!account) {
+			this.logger.info(
+				`No account found for identifier=${identifier}, creating new account`
+			)
+
 			account = await this.userRepository.create({
 				email: type === 'email' ? identifier : undefined,
 				phone: type === 'phone' ? identifier : undefined
@@ -46,19 +58,23 @@ export class AuthService {
 			type as 'email' | 'phone'
 		)
 
-		console.log('OTP code:', code)
-
 		this.messagingService.otpRequested({
 			identifier,
 			type,
 			code
 		})
 
+		this.logger.info(`OTP sent successfully: to ${identifier}`)
+
 		return { ok: true }
 	}
 
 	async verifyOtp(data: VerifyOtpRequest) {
 		const { identifier, code, type } = data
+
+		this.logger.info(
+			`OTP verification attempt: identifier=${identifier}, code=${code}`
+		)
 
 		await this.otpService.verify(
 			identifier,
@@ -71,11 +87,16 @@ export class AuthService {
 			account = await this.userRepository.findByPhone(identifier)
 		else account = await this.userRepository.findByEmail(identifier)
 
-		if (!account)
+		if (!account) {
+			this.logger.warn(
+				`OTP verified but no account found for identifier=${identifier}`
+			)
+
 			throw new RpcException({
 				code: RpcStatus.NOT_FOUND,
 				details: 'Account not found'
 			})
+		}
 
 		if (type === 'phone' && !account.isPhoneVerified)
 			await this.userRepository.update(account.id, {
@@ -86,6 +107,10 @@ export class AuthService {
 			await this.userRepository.update(account.id, {
 				isEmailVerified: true
 			})
+
+		this.logger.info(
+			`OTP verified successfully for identifier=${identifier}`
+		)
 
 		this.usersClient
 			.create({
@@ -99,13 +124,22 @@ export class AuthService {
 	refresh(data: RefreshRequest) {
 		const { refreshToken } = data
 
+		this.logger.debug('Refresh token requested')
+
 		const result = this.tokenService.verify(refreshToken)
 
-		if (!result.valid)
+		if (!result.valid) {
+			this.logger.warn(`Invalid refresh token: reason=${result.reason}`)
+
 			throw new RpcException({
 				code: RpcStatus.UNAUTHENTICATED,
 				details: result.reason
 			})
+		}
+
+		this.logger.info(
+			`Refresh token verified successfully for userId=${result.userId}`
+		)
 
 		return this.tokenService.generate(result.userId!)
 	}
