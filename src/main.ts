@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { AllConfigs } from './config'
 import { createGrpcServer } from './infra/grpc/grpc.server'
+import './observability/tracing'
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
