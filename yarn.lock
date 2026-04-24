@@ -2123,7 +2123,16 @@
     "@nestjs/microservices" "^11.1.18"
     "@razom-pay/contracts" "^1.1.5"
 
-"@razom-pay/contracts@^1.1.4", "@razom-pay/contracts@^1.1.5":
+"@razom-pay/contracts@^1.1.4":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@razom-pay/contracts/-/contracts-1.1.8.tgz#9a60d1ccaa05c3c9fb9ebf6dbbb29bab323da1ff"
+  integrity sha512-+wr/U9pYj7fLs31yyNfv9XaVRNgNPnETfNplVRaaOjAzVsQNJhkp8ag+A+b/UGyOPMNnAFYCBrbNAyDv2GAN2Q==
+  dependencies:
+    "@nestjs/microservices" "^11.1.17"
+    rxjs "^7.8.2"
+    ts-proto "^2.11.6"
+
+"@razom-pay/contracts@^1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@razom-pay/contracts/-/contracts-1.1.5.tgz#4836e911e220fc31238e9ff3506ad79edbe5aeaf"
   integrity sha512-elfw+GhrRLH8QPlTosAzb9zhJeCPyxoMHLvFO/KZmjcyQL2ftJkTNcKkKSzpQzC0+k+q2+Z8vj1vFCHgLHYtTA==
