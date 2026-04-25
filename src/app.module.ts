@@ -45,7 +45,10 @@ import { ObservabilityModule } from './observability/observability.module'
 				transport: {
 					target: 'pino/file',
 					options: {
-						destination: '/var/log/services/auth/auth.log',
+						destination:
+							process.platform === 'linux'
+								? '/var/log/services/auth/auth.log'
+								: '.logs/auth/auth.log',
 						mkdir: true
 					}
 				},
